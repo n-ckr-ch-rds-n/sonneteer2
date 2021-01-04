@@ -2,14 +2,15 @@ import type {Poem} from "./poem";
 import type {RhymeSet} from "./rhyme.set";
 import type {RhymeGenerator} from "../rhyme-generator/rhyme.generator";
 import type {RandomWordGenerator} from "../random-word-generator/random.word.generator";
-import syllable from "syllable";
+import type {SyllableCounter} from "../syllable-counter/syllable.counter";
 
 export class Sonneteer {
 
     maxTitleLength = 5;
 
     constructor(private rhymeGenerator: RhymeGenerator,
-                private randomWordGenerator: RandomWordGenerator) {}
+                private randomWordGenerator: RandomWordGenerator,
+                private syllableCounter: SyllableCounter) {}
 
     composePoem(rhymeScheme: string, lineLength: number): Poem {
         const title = this.generateTitle(this.maxTitleLength);
@@ -34,14 +35,13 @@ export class Sonneteer {
         let syllableCount: number;
         let line = [lineEnd];
         do {
-            syllableCount = syllable(line);
+            syllableCount = this.syllableCounter(line);
             if (syllableCount < lineLength) {
                 line.unshift(this.randomWordGenerator());
             } else if (syllableCount > lineLength) {
                 line.shift();
             }
-        }
-        while(syllableCount !== lineLength);
+        } while(syllableCount !== lineLength);
         line[0] = line[0].charAt(0).toUpperCase() + line[0].substr(1);
         return line.join(" ");
     }

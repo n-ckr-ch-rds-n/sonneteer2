@@ -3,8 +3,9 @@
 	import type {Poem} from "./sonneteer/poem";
 	import {generateRhymes} from "./rhyme-generator/generate.rhymes";
 	import {generateRandomWord} from "./random-word-generator/generate.random.word";
+	import {countSyllables} from "./syllable-counter/count.syllables";
 
-	const sonneteer = new Sonneteer(generateRhymes, generateRandomWord);
+	const sonneteer = new Sonneteer(generateRhymes, generateRandomWord, countSyllables);
 	let rhymeScheme = "ABBAABBACDCDCC";
 	let lineLength = 14;
 	let poem: Poem;
@@ -31,7 +32,9 @@
 	</div>
 	{#if poem}
 		<h2>{poem.title}</h2>
-		<p>{poem.body}</p>
+		{#each poem.body as line}
+			<p>{line}</p>
+		{/each}
 	{:else}
 		<img src="assets/writing_hand.gif" alt="Writing hand">
 	{/if}
