@@ -2,6 +2,7 @@ import type {Poem} from "./poem";
 import type {RhymeSet} from "./rhyme.set";
 import type {RhymeGenerator} from "../rhyme-generator/rhyme.generator";
 import type {RandomWordGenerator} from "../random-word-generator/random.word.generator";
+import syllable from "syllable";
 
 export class Sonneteer {
 
@@ -28,7 +29,19 @@ export class Sonneteer {
     }
 
     toLine(lineEnd: string, lineLength: number): string {
-        return `Foo bar ${lineEnd}`;
+        let syllableCount: number;
+        let line = [lineEnd];
+        do {
+            syllableCount = syllable(line);
+            if (syllableCount < lineLength) {
+                line.unshift(this.randomWordGenerator());
+            } else if (syllableCount > lineLength) {
+                line.shift();
+            }
+        }
+        while(syllableCount !== lineLength);
+        line[0] = line[0].charAt(0).toUpperCase() + line[0].substr(1);
+        return line.join(" ");
     }
 
     generateTitle(): string {
