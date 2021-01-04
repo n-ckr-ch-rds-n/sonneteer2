@@ -14,9 +14,11 @@ export class Sonneteer {
 
     composePoem(rhymeScheme: string, lineLength: number): Promise<Poem> {
         return new Promise(resolve => {
-            const title = this.generateTitle(this.maxTitleLength);
-            const body = this.toBody(rhymeScheme, lineLength);
-            setTimeout(() => resolve({title, body}), 1000);
+            setTimeout(() => {
+                const title = this.generateTitle(this.maxTitleLength);
+                const body = this.toBody(rhymeScheme, lineLength);
+                resolve({title, body})
+            }, 1000);
         })
     }
 
