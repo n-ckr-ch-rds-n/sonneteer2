@@ -2,6 +2,7 @@
 	export let name: string;
 	let rhymeScheme = "ABBAABBACDCDCC";
 	let lineLength = 14;
+	let poem;
 </script>
 
 <main>
@@ -13,6 +14,11 @@
 		<input type="number" id="line-length" min="0" max="100" bind:value={lineLength}>
 		<button>Generate</button>
 	</div>
+	{#if poem}
+		<p>{poem}</p>
+	{:else}
+		<img src="assets/writing_hand.gif" alt="Writing hand">
+	{/if}
 </main>
 
 <style>
