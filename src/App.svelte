@@ -1,8 +1,9 @@
 <script lang="ts">
 	import {Sonneteer} from "./sonneteer/sonneteer";
 	import type {Poem} from "./sonneteer/poem";
+	import {generateRhymes} from "./rhyme-generator/generate.rhymes";
 
-	const sonneteer = new Sonneteer()
+	const sonneteer = new Sonneteer(generateRhymes);
 	let rhymeScheme = "ABBAABBACDCDCC";
 	let lineLength = 14;
 	let poem: Poem;

@@ -1,8 +1,10 @@
 import type {Poem} from "./poem";
-import rhymes from "rhymes";
 import type {RhymeSet} from "./rhyme.set";
+import type {RhymeGenerator} from "../rhyme-generator/rhyme.generator";
 
 export class Sonneteer {
+
+    constructor(private rhymeGenerator: RhymeGenerator) {}
 
     composePoem(rhymeScheme: string, lineLength: number): Poem {
         const title = this.generateTitle();
@@ -28,7 +30,7 @@ export class Sonneteer {
     }
 
     toRhymes(rhymeWord: string): string[] {
-        return [...rhymes(rhymeWord).map(r => r.word), rhymeWord];
+        return [...this.rhymeGenerator(rhymeWord).map(r => r.word), rhymeWord];
     }
 
 }
