@@ -1,8 +1,11 @@
 <script lang="ts">
-	export let name: string;
 	let rhymeScheme = "ABBAABBACDCDCC";
 	let lineLength = 14;
 	let poem;
+
+	const generatePoem = () => {
+		poem = "foobar";
+	}
 </script>
 
 <main>
@@ -12,7 +15,7 @@
 		<input type="text" id="rhyme-scheme" bind:value={rhymeScheme}>
 		<label for="line-length">Line length:</label>
 		<input type="number" id="line-length" min="0" max="100" bind:value={lineLength}>
-		<button>Generate</button>
+		<button on:click={generatePoem}>Generate</button>
 	</div>
 	{#if poem}
 		<p>{poem}</p>
@@ -40,6 +43,7 @@
 		display: flex;
 		flex-direction: row;
 		justify-content: center;
+		align-items: baseline;
 	}
 
 	@media (min-width: 640px) {
