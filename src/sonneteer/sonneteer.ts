@@ -9,17 +9,16 @@ export class Sonneteer {
                 private randomWordGenerator: RandomWordGenerator) {}
 
     composePoem(rhymeScheme: string, lineLength: number): Poem {
-        console.log("SCHEME", rhymeScheme);
         const title = this.generateTitle();
         const body = this.toBody(rhymeScheme, lineLength);
         return {title, body};
     }
 
     toBody(rhymeScheme: string, lineLength: number): string[] {
-        const rhymeSet = this.toRhymeSet(rhymeScheme);
-        console.log(rhymeSet);
-        return rhymeScheme.split("").reduce((acc, curr) => {
-            const rhymeSelector = Math.floor(Math.random() * rhymeScheme[curr].length);
+        const rhymeSchemeArray = rhymeScheme.split("");
+        const rhymeSet = this.toRhymeSet(rhymeSchemeArray);
+        return rhymeSchemeArray.reduce((acc, curr) => {
+            const rhymeSelector = Math.floor(Math.random() * rhymeSet[curr].length);
             const lineEnd = rhymeSet[curr][rhymeSelector];
             return [
                 ...acc,
@@ -36,8 +35,8 @@ export class Sonneteer {
         return "foobar";
     }
 
-    toRhymeSet(rhymeScheme: string): RhymeSet {
-        const rhymeSchemeSet = [...new Set(rhymeScheme.split(""))];
+    toRhymeSet(rhymeSchemeArray: string[]): RhymeSet {
+        const rhymeSchemeSet = [...new Set(rhymeSchemeArray)];
         return rhymeSchemeSet.reduce((acc, curr) => {
             const rhymeWord = this.randomWordGenerator();
             return {...acc, [curr]: this.toRhymes(rhymeWord)}
