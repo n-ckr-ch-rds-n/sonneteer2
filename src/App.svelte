@@ -9,9 +9,14 @@
 	let rhymeScheme = "ABBAABBACDCDCC";
 	let lineLength = 14;
 	let poemPromise: Promise<Poem>;
+	let maxLineLength = 100;
 
 	const generatePoem = () => {
-		poemPromise = sonneteer.composePoem(rhymeScheme, lineLength);
+		if (lineLength > maxLineLength) {
+			alert(`Line length must be lower than ${maxLineLength}`)
+		} else {
+			poemPromise = sonneteer.composePoem(rhymeScheme, lineLength);
+		}
 	}
 
 	generatePoem();
@@ -23,9 +28,10 @@
 		<label for="rhyme-scheme">Rhyme Scheme:</label>
 		<input type="text" id="rhyme-scheme" bind:value={rhymeScheme}>
 		<label for="line-length">Line length:</label>
-		<input type="number" id="line-length" min="0" max="100" bind:value={lineLength}>
+		<input type="number" id="line-length" min="0" max={maxLineLength} bind:value={lineLength}>
 		<button on:click={generatePoem}>Generate</button>
 	</div>
+
 	{#await poemPromise}
 		<img src="assets/writing_hand.gif" alt="Writing hand">
 	{:then poem}

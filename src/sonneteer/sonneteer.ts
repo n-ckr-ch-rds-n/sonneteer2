@@ -18,7 +18,7 @@ export class Sonneteer {
                 const title = this.generateTitle(this.maxTitleLength);
                 const body = this.toBody(rhymeScheme, lineLength);
                 resolve({title, body})
-            }, 1000);
+            }, 100);
         })
     }
 
