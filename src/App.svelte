@@ -1,10 +1,14 @@
 <script lang="ts">
+	import {Sonneteer} from "./sonneteer/sonneteer";
+	import type {Poem} from "./sonneteer/poem";
+
+	const sonneteer = new Sonneteer()
 	let rhymeScheme = "ABBAABBACDCDCC";
 	let lineLength = 14;
-	let poem;
+	let poem: Poem;
 
 	const generatePoem = () => {
-		poem = "foobar";
+		poem = sonneteer.composePoem(rhymeScheme, lineLength);
 	}
 </script>
 
@@ -18,7 +22,8 @@
 		<button on:click={generatePoem}>Generate</button>
 	</div>
 	{#if poem}
-		<p>{poem}</p>
+		<h2>{poem.title}</h2>
+		<p>{poem.body}</p>
 	{:else}
 		<img src="assets/writing_hand.gif" alt="Writing hand">
 	{/if}
