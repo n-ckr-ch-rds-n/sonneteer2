@@ -8,17 +8,13 @@
 	const sonneteer = new Sonneteer(generateRhymes, generateRandomWord, countSyllables);
 	let rhymeScheme = "ABBAABBACDCDCC";
 	let lineLength = 14;
-	let poem: Poem;
+	let poemPromise: Promise<Poem>;
 
 	const generatePoem = () => {
-		poem = undefined;
-		setTimeout(() => {
-			poem = sonneteer.composePoem(rhymeScheme, lineLength);
-		}, 1000);
+		poemPromise = sonneteer.composePoem(rhymeScheme, lineLength);
 	}
 
 	generatePoem();
-
 </script>
 
 <main>
@@ -30,14 +26,14 @@
 		<input type="number" id="line-length" min="0" max="100" bind:value={lineLength}>
 		<button on:click={generatePoem}>Generate</button>
 	</div>
-	{#if poem}
+	{#await poemPromise}
+		<img src="assets/writing_hand.gif" alt="Writing hand">
+	{:then poem}
 		<h2>{poem.title}</h2>
 		{#each poem.body as line}
 			<p>{line}</p>
 		{/each}
-	{:else}
-		<img src="assets/writing_hand.gif" alt="Writing hand">
-	{/if}
+	{/await}
 </main>
 
 <style>

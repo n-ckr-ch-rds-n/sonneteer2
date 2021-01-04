@@ -12,10 +12,12 @@ export class Sonneteer {
                 private randomWordGenerator: RandomWordGenerator,
                 private syllableCounter: SyllableCounter) {}
 
-    composePoem(rhymeScheme: string, lineLength: number): Poem {
-        const title = this.generateTitle(this.maxTitleLength);
-        const body = this.toBody(rhymeScheme, lineLength);
-        return {title, body};
+    composePoem(rhymeScheme: string, lineLength: number): Promise<Poem> {
+        return new Promise(resolve => {
+            const title = this.generateTitle(this.maxTitleLength);
+            const body = this.toBody(rhymeScheme, lineLength);
+            setTimeout(() => resolve({title, body}), 1000);
+        })
     }
 
     toBody(rhymeScheme: string, lineLength: number): string[] {
