@@ -10,8 +10,14 @@
 	let poem: Poem;
 
 	const generatePoem = () => {
-		poem = sonneteer.composePoem(rhymeScheme, lineLength);
+		poem = undefined;
+		setTimeout(() => {
+			poem = sonneteer.composePoem(rhymeScheme, lineLength);
+		}, 1000);
 	}
+
+	generatePoem();
+
 </script>
 
 <main>
