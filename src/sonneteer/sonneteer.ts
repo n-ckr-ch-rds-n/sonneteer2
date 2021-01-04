@@ -9,15 +9,27 @@ export class Sonneteer {
                 private randomWordGenerator: RandomWordGenerator) {}
 
     composePoem(rhymeScheme: string, lineLength: number): Poem {
+        console.log("SCHEME", rhymeScheme);
         const title = this.generateTitle();
-        const body = this.toBody(rhymeScheme);
+        const body = this.toBody(rhymeScheme, lineLength);
         return {title, body};
     }
 
-    toBody(rhymeScheme: string): string[] {
+    toBody(rhymeScheme: string, lineLength: number): string[] {
         const rhymeSet = this.toRhymeSet(rhymeScheme);
         console.log(rhymeSet);
-        return ["baz"];
+        return rhymeScheme.split("").reduce((acc, curr) => {
+            const rhymeSelector = Math.floor(Math.random() * rhymeScheme[curr].length);
+            const lineEnd = rhymeSet[curr][rhymeSelector];
+            return [
+                ...acc,
+                this.toLine(lineEnd, lineLength)
+            ]
+        }, [])
+    }
+
+    toLine(lineEnd: string, lineLength: number): string {
+        return `Foo bar ${lineEnd}`;
     }
 
     generateTitle(): string {
@@ -25,14 +37,15 @@ export class Sonneteer {
     }
 
     toRhymeSet(rhymeScheme: string): RhymeSet {
-        return rhymeScheme.split("").reduce((acc, curr) => {
+        const rhymeSchemeSet = [...new Set(rhymeScheme.split(""))];
+        return rhymeSchemeSet.reduce((acc, curr) => {
             const rhymeWord = this.randomWordGenerator();
             return {...acc, [curr]: this.toRhymes(rhymeWord)}
         }, {});
     }
 
     toRhymes(rhymeWord: string): string[] {
-        return [...this.rhymeGenerator(rhymeWord).map(r => r.word), rhymeWord];
+        return [rhymeWord, ...this.rhymeGenerator(rhymeWord).map(r => r.word)];
     }
 
 }
