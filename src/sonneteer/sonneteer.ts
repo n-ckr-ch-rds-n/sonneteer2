@@ -6,11 +6,13 @@ import syllable from "syllable";
 
 export class Sonneteer {
 
+    maxTitleLength = 5;
+
     constructor(private rhymeGenerator: RhymeGenerator,
                 private randomWordGenerator: RandomWordGenerator) {}
 
     composePoem(rhymeScheme: string, lineLength: number): Poem {
-        const title = this.generateTitle();
+        const title = this.generateTitle(this.maxTitleLength);
         const body = this.toBody(rhymeScheme, lineLength);
         return {title, body};
     }
@@ -44,8 +46,12 @@ export class Sonneteer {
         return line.join(" ");
     }
 
-    generateTitle(): string {
-        return "foobar";
+    generateTitle(maxTitleLength: number): string {
+        const titleLength = Math.floor(Math.random() * maxTitleLength) + 1;
+        return new Array(titleLength)
+            .fill(0)
+            .map(() => this.randomWordGenerator().toUpperCase())
+            .join(" ");
     }
 
     toRhymeSet(rhymeSchemeArray: string[]): RhymeSet {
