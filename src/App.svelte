@@ -2,8 +2,9 @@
 	import {Sonneteer} from "./sonneteer/sonneteer";
 	import type {Poem} from "./sonneteer/poem";
 	import {generateRhymes} from "./rhyme-generator/generate.rhymes";
+	import {generateRandomWord} from "./random-word-generator/generate.random.word";
 
-	const sonneteer = new Sonneteer(generateRhymes);
+	const sonneteer = new Sonneteer(generateRhymes, generateRandomWord);
 	let rhymeScheme = "ABBAABBACDCDCC";
 	let lineLength = 14;
 	let poem: Poem;
