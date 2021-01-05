@@ -6,6 +6,7 @@
 	import {countSyllables} from "./syllable-counter/count.syllables";
 	import Header from "./header/Header.svelte";
 	import Loading from "./loading/Loading.svelte";
+	import PoemContainer from "./poem/PoemContainer.svelte";
 
 	const appName = "Sonneteer";
 	const sonneteer = new Sonneteer(generateRhymes, generateRandomWord, countSyllables);
@@ -38,10 +39,7 @@
 	{#await poemPromise}
 		<Loading/>
 	{:then poem}
-		<h2>{poem.title}</h2>
-		{#each poem.body as line}
-			<p>{line}</p>
-		{/each}
+		<PoemContainer poem="{poem}"/>
 	{/await}
 </main>
 
