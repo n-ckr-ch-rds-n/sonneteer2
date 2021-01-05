@@ -7,35 +7,24 @@
 	import Header from "./header/Header.svelte";
 	import Loading from "./loading/Loading.svelte";
 	import PoemContainer from "./poem/PoemContainer.svelte";
+	import Configurator from "./configurator/Configurator.svelte";
 
-	const appName = "Sonneteer";
 	const sonneteer = new Sonneteer(generateRhymes, generateRandomWord, countSyllables);
 	let rhymeScheme = "ABBAABBACDCDCC";
 	let lineLength = 14;
 	let poemPromise: Promise<Poem>;
 	let maxLineLength = 100;
 
-	const generatePoem = () => {
-		if (lineLength > maxLineLength) {
-			alert(`Line length must be lower than ${maxLineLength}`)
-		} else {
-			poemPromise = sonneteer.composePoem(rhymeScheme, lineLength);
-		}
+	const generatePoem = (event) => {
+		poemPromise = sonneteer.composePoem(event.detail.rhymeScheme, event.detail.lineLength)
 	}
 
-	generatePoem();
+	poemPromise = sonneteer.composePoem(rhymeScheme, lineLength);
 </script>
 
 <main>
-	<Header appName={appName}/>
-	<div class="options-container">
-		<label for="rhyme-scheme">Rhyme Scheme:</label>
-		<input type="text" id="rhyme-scheme" bind:value={rhymeScheme}>
-		<label for="line-length">Line length:</label>
-		<input type="number" id="line-length" min="0" max={maxLineLength} bind:value={lineLength}>
-		<button on:click={generatePoem}>Generate</button>
-	</div>
-
+	<Header/>
+	<Configurator on:poemRequest={generatePoem}/>
 	{#await poemPromise}
 		<Loading/>
 	{:then poem}
@@ -49,13 +38,6 @@
 		padding: 1em;
 		max-width: 240px;
 		margin: 0 auto;
-	}
-
-	.options-container {
-		display: flex;
-		flex-direction: row;
-		justify-content: center;
-		align-items: baseline;
 	}
 
 	@media (min-width: 640px) {

@@ -1,15 +1,16 @@
 <script>
-    export let appName;
+    const appName = "Sonneteer";
 </script>
 
-<h1 class="header">{appName}</h1>
+<h1>{appName}</h1>
+
 <style>
     @font-face {
         font-family: "Quilted Butterfly";
         src: url("/assets/DK Quilted Butterfly.ttf");
     }
 
-    .header {
+    h1 {
         font-family: "Quilted Butterfly", serif;
         color: #006060;
         text-align: center;
