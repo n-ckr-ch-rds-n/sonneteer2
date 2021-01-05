@@ -5,6 +5,7 @@
 	import {generateRandomWord} from "./random-word-generator/generate.random.word";
 	import {countSyllables} from "./syllable-counter/count.syllables";
 	import Header from "./header/Header.svelte";
+	import Loading from "./loading/Loading.svelte";
 
 	const appName = "Sonneteer";
 	const sonneteer = new Sonneteer(generateRhymes, generateRandomWord, countSyllables);
@@ -25,7 +26,7 @@
 </script>
 
 <main>
-	<Header appName={appName}></Header>
+	<Header appName={appName}/>
 	<div class="options-container">
 		<label for="rhyme-scheme">Rhyme Scheme:</label>
 		<input type="text" id="rhyme-scheme" bind:value={rhymeScheme}>
@@ -35,7 +36,7 @@
 	</div>
 
 	{#await poemPromise}
-		<img src="assets/writing_hand.gif" alt="Writing hand">
+		<Loading/>
 	{:then poem}
 		<h2>{poem.title}</h2>
 		{#each poem.body as line}
@@ -50,13 +51,6 @@
 		padding: 1em;
 		max-width: 240px;
 		margin: 0 auto;
-	}
-
-	h1 {
-		color: #ff3e00;
-		text-transform: uppercase;
-		font-size: 4em;
-		font-weight: 100;
 	}
 
 	.options-container {
