@@ -4,7 +4,9 @@
 	import {generateRhymes} from "./rhyme-generator/generate.rhymes";
 	import {generateRandomWord} from "./random-word-generator/generate.random.word";
 	import {countSyllables} from "./syllable-counter/count.syllables";
+	import Header from "./header/Header.svelte";
 
+	const appName = "Sonneteer";
 	const sonneteer = new Sonneteer(generateRhymes, generateRandomWord, countSyllables);
 	let rhymeScheme = "ABBAABBACDCDCC";
 	let lineLength = 14;
@@ -23,7 +25,7 @@
 </script>
 
 <main>
-	<h1>Sonneteer</h1>
+	<Header appName={appName}></Header>
 	<div class="options-container">
 		<label for="rhyme-scheme">Rhyme Scheme:</label>
 		<input type="text" id="rhyme-scheme" bind:value={rhymeScheme}>
