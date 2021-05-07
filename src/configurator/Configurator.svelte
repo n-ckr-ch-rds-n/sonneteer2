@@ -32,4 +32,8 @@
         justify-content: center;
         align-items: baseline;
     }
+
+    .options-container > * {
+        margin: 3px;
+    }
 </style>

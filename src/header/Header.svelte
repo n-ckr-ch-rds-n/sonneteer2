@@ -7,7 +7,7 @@
 <style>
     @font-face {
         font-family: "Quilted Butterfly";
-        src: url("/assets/DK Quilted Butterfly.ttf");
+        src: url("../assets/DK Quilted Butterfly.ttf");
     }
 
     h1 {
