@@ -5,7 +5,8 @@
     "build": "rollup -c",
     "dev": "rollup -c -w",
     "start": "sirv public",
-    "validate": "svelte-check"
+    "validate": "svelte-check",
+    "deploy": "git subtree push --prefix public origin gh-pages"
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^16.0.0",
